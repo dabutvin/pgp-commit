@@ -1,0 +1,15 @@
+{
+  "name": "pgp-commit",
+  "version": "0.1.0",
+  "description": "PGP signing of commits with openpgp and nodegit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dabutvin",
+  "license": "MIT",
+  "dependencies": {
+    "nodegit": "^0.23.0",
+    "openpgp": "^4.2.2"
+  }
+}
