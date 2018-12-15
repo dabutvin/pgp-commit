@@ -1,13 +1,18 @@
 const test = require('tape')
-const pgpCommit = require('.')
+const git = require('nodegit')
+const pgpCommit = require('..')
 
 test('signs commits', async t => {
-  let signature = await pgpCommit(
-    'message',
-    sample_private_key,
-    sample_password
-  )
-  t.equal(signature, '')
+  const author = git.Signature.now('test', 'test@test.com')
+  let commitId = await pgpCommit({
+    author,
+    committer: author,
+    commitMessage: 'message',
+    passphrase: sample_password,
+    privateKey: sample_private_key,
+    repo: null
+  })
+  t.equal(commitId, 'e854cfcc3b5d2b7eb4a235c671c37b9b3059b668')
   t.end()
 })
 

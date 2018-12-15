@@ -1,35 +1,29 @@
 const git = require('nodegit')
 const openpgp = require('openpgp')
 
-const fs = require('fs')
-
-async function sign(message, privateKey, passphrase) {
-  const repo = await git.Clone(
-    'https://github.com/dabutvin/deepstream',
-    '/private/tmp/test'
-  )
-
-  fs.writeFileSync('/private/tmp/test/nothing', 'data')
+async function sign({
+  repo,
+  author,
+  committer,
+  commitMessage,
+  privateKey,
+  passphrase
+}) {
   const index = await repo.refreshIndex()
-  await index.addAll()
-  await index.write()
   const oid = await index.writeTreeTo(repo)
-  const branch = await repo.getBranch('HEAD')
+  const currentBranch = await repo.getBranch('HEAD')
   const head = await git.Reference.nameToId(repo, 'HEAD')
   const parent = await repo.getCommit(head)
-  const author = git.Signature.now('test', 'test@test.com')
-  const committer = git.Signature.now('test', 'test@test.com')
   const commit = await repo.createCommitWithSignature(
     author,
     committer,
-    message,
+    commitMessage,
     oid,
     [parent],
     'gpgsig',
     onSignature
   )
-
-  await branch.setTarget(commit.toString(), 'updating head')
+  await currentBranch.setTarget(commit.toString(), 'updating head')
   return commit.toString()
 
   async function onSignature(tosign) {
@@ -46,4 +40,5 @@ async function sign(message, privateKey, passphrase) {
     return signature
   }
 }
+
 module.exports = sign
