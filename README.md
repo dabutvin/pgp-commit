@@ -16,24 +16,25 @@ npm install pgp-commit
 See more examples in examples folder
 
 ```js
-const git = require('nodegit')
-const pgpCommit = require('pgp-commit')
+const git = require("nodegit")
+const pgpCommit = require("pgp-commit")
 
 run()
 
 async function run() {
   // clone a repo
-  const repo = await git.Clone('https://github.com/owner/repo', '/temp/repo')
-  const commitMessage = 'add data to something'
-  const author = git.Signature.now('test', 'test@test.com')
-  const committer = git.Signature.now('test', 'test@test.com')
+  const repo = await git.Clone("https://github.com/owner/repo", "/temp/repo")
+  const commitMessage = "add data to something"
+  const author = git.Signature.now("test", "test@test.com")
+  const committer = git.Signature.now("test", "test@test.com")
 
   // make a change
-  fs.writeFileSync('/temp/repo/nothing', 'nothing')
+  fs.writeFileSync("/temp/repo/nothing", "nothing")
 
   // stage the change
   const index = await repo.refreshIndex()
   await index.addAll()
+  await index.write()
 
   // make a signed commit
   const commitId = await pgpCommit({

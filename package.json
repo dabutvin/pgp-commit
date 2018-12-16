@@ -3,16 +3,10 @@
   "version": "0.1.0",
   "description": "PGP signing of commits with openpgp and nodegit",
   "main": "index.js",
-  "scripts": {
-    "test": "node test/index.js"
-  },
   "author": "dabutvin",
   "license": "MIT",
   "dependencies": {
     "nodegit": "^0.23.0",
     "openpgp": "^4.2.2"
-  },
-  "devDependencies": {
-    "tape": "^4.9.1"
   }
 }

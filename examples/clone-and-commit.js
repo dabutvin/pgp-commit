@@ -18,6 +18,7 @@ async function run() {
   // add to the stage
   const index = await repo.refreshIndex()
   await index.addAll()
+  await index.write()
 
   // do the signed commit in place
   const commitId = await pgpCommit({
@@ -33,6 +34,7 @@ async function run() {
 
 run()
 
+// never check in a real private key
 const sample_private_key = `-----BEGIN PGP PRIVATE KEY BLOCK-----
 Version: BCPG C# v1.6.1.0
 
@@ -65,4 +67,5 @@ s0IzD2i+KIfn2dH5wDqs0pPbvhJIWp/i3u4Q+kL4DxdNoqXog8+82qr5b6Is
 =rqAt
 -----END PGP PRIVATE KEY BLOCK-----`
 
+// never check in a real password
 const sample_password = 'testpassword'
