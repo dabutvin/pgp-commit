@@ -47,3 +47,7 @@ async function run() {
   })
 }
 ```
+
+## Add your GPG key to github
+
+see https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/

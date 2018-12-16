@@ -30,13 +30,20 @@ async function sign({
     const privateKeyResult = (await openpgp.key.readArmored(privateKey)).keys[0]
     if (!privateKeyResult) throw new Error('unable to read private key')
     await privateKeyResult.decrypt(passphrase)
+
+    // use binary to preserve line-endings to make signatures match
+    const buf = new Uint8Array(tosign.length)
+    for (let i = 0; i < tosign.length; i++) {
+      buf[i] = tosign.charCodeAt(i)
+    }
+
     const options = {
-      message: openpgp.cleartext.fromText(tosign),
+      message: openpgp.message.fromBinary(buf),
       privateKeys: [privateKeyResult],
       detached: true
     }
     const signed = await openpgp.sign(options)
-    const signature = signed.signature.replace(/\r\n/g, '\n')
+    const signature = signed.signature
     return signature
   }
 }
