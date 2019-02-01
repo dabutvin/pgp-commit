@@ -11,10 +11,10 @@ async function sign({
 }) {
   const index = await repo.refreshIndex()
   const oid = await index.writeTreeTo(repo)
-  const currentBranch = await repo.getBranch('HEAD')
   const head = await git.Reference.nameToId(repo, 'HEAD')
   const parent = await repo.getCommit(head)
   const commit = await repo.createCommitWithSignature(
+    'HEAD',
     author,
     committer,
     commitMessage,
@@ -23,7 +23,6 @@ async function sign({
     'gpgsig',
     onSignature
   )
-  await currentBranch.setTarget(commit.toString(), 'updating head')
   return commit.toString()
 
   async function onSignature(tosign) {

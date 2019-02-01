@@ -6,7 +6,7 @@
   "author": "dabutvin",
   "license": "MIT",
   "dependencies": {
-    "nodegit": "^0.23.0",
+    "nodegit": "^0.25.0-alpha.1",
     "openpgp": "^4.2.2"
   }
 }
