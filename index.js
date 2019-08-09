@@ -20,7 +20,6 @@ async function sign({
     commitMessage,
     oid,
     [parent],
-    'gpgsig',
     onSignature
   )
   return commit.toString()
@@ -43,7 +42,11 @@ async function sign({
     }
     const signed = await openpgp.sign(options)
     const signature = signed.signature
-    return signature
+    return {
+      code: git.Error.CODE.OK,
+      field: 'gpgsig',
+      signedData: signature
+    }
   }
 }
 

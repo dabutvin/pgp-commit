@@ -1,6 +1,6 @@
 {
   "name": "pgp-commit",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "PGP signing of commits with openpgp and nodegit",
   "main": "index.js",
   "author": "dabutvin",
@@ -10,7 +10,7 @@
     "url": "https://github.com/dabutvin/pgp-commit.git"
   },
   "dependencies": {
-    "nodegit": "^0.25.0-alpha.1",
+    "nodegit": "^0.25.0",
     "openpgp": "^4.2.2"
   }
 }
