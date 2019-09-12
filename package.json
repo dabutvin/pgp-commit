@@ -10,7 +10,7 @@
     "url": "https://github.com/dabutvin/pgp-commit.git"
   },
   "dependencies": {
-    "nodegit": "^0.25.0",
+    "nodegit": "^0.26.0",
     "openpgp": "^4.2.2"
   }
 }
